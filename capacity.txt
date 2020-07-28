@@ -1,0 +1,4 @@
+Location1-400
+Location2-50
+Location3-50
+Location4-50

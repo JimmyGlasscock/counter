@@ -11,7 +11,18 @@
 	if($_POST['location']){
 		$_SESSION['location'] = $_POST['location'];
 	}
-
+	
+	//default is 50
+	$capacity = 50;
+	
+	$file = fopen('capacity.txt', 'r');
+	$data = fread($file, filesize('capacity.txt'));
+	fclose($file);
+	
+	$data = $parts = preg_split('/\s+/', $data);
+	$string = $data[((int)$_SESSION['location'])-1];
+	
+	$capacity = (int)substr($string, strpos($string, '-')+1);
 ?>
 <html>
 	<link rel="stylesheet" href="style.css" type="text/css">
@@ -21,10 +32,10 @@
 			width: 95%;
 		}
 		.number{
-			font-size: 64px !important;
+			font-size: 160px !important;
 			position: absolute;
 			left: 50%;
-			top: 23%;
+			top: 20%;
 			transform: translate(-50%, -50%)
 		}
 		.button {
@@ -87,15 +98,28 @@
 	<head>
 		<link rel=\"stylesheet\" href=\"//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css\">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<link rel="icon" href="favicon.ico" type="image/x-icon" />
 	</head>
 	<body>
 		<div class="contain" id="title">
 			<span class="textcenter" id="titleText">
-				<h1>Student Counter</h1>
+				<h1>Student Counter</h1><h2 style="color: #fff; font-size: 18pt; font-weight: lighter;">
+				<?php 
+					if($_SESSION['location'] == '1'){
+						echo 'Campus Store';
+					}else if($_SESSION['location'] == '2'){
+						echo 'Health Sciences';
+					}else if($_SESSION['location'] == '3'){
+						echo 'Sandy';
+					}else if($_SESSION['location'] == '4'){
+						echo 'Textbooks';
+					}
+				?>
+				</h2>
 			</span>
 		</div>
-		<div class="contain" style="height: 35%;">
-			<div class="numberDisplay">
+		<div class="contain numberDisplay" style="height: 35%;">
+			<div>
 				<!-- Display number of students -->
 				<?php 
 					$query = "SELECT * FROM students;";
@@ -123,6 +147,7 @@
 			</div>
 		</div>
 		<input type="hidden" id="location" <?php echo 'value="'.$_SESSION['location'].'"'?>>
+		<input type="hidden" id="capacity" <?php echo 'value="'.$capacity.'"'?>>
 	</body>
 	<footer>
 		<script>
@@ -138,11 +163,17 @@
 			});
 
 			function update(){
+				var l = $('#location').val();
+				var location = { location: l}
 				$.ajax({
 					url: 'get-num.php',
+					type: 'POST',
+					data: location,
+					dataType: 'text',
 					success:function(data){
 						$('.number').html(data);
-						console.log('updated.')
+						console.log('updated')
+						updateColor(data);
 					}
 				});
 			}
@@ -175,6 +206,32 @@
 						console.log(data)
 					}
 				});
+			}
+			
+			function updateColor(data){
+				data = parseInt(data);
+				var capacity = parseInt($('#capacity').val());
+				if(capacity <= data){
+					//set color #ce4a4a
+					//set text #fff
+					$('.numberDisplay').css('background', '#ce4a4a');
+					$('.number').css('color', '#fff');
+					console.log("capa: "+capacity)
+					console.log("data: "+data)
+				}else if(capacity*0.9 < data){
+					//set color #ffbc9c
+					$('.numberDisplay').css('background', '#ffbc9c');
+					$('.number').css('color', '#000');
+				}else if(capacity*0.75 < data){
+					//set color #ffe19c
+					$('.numberDisplay').css('background', '#ffe19c');
+					$('.number').css('color', '#000');
+				}else{
+					//set white & set text #000
+					$('.numberDisplay').css('background', '#fff');
+					$('.number').css('color', '#000');
+				}	
+				
 			}
 		</script>
 	</footer>
