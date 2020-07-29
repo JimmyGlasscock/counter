@@ -38,6 +38,13 @@
 			top: 20%;
 			transform: translate(-50%, -50%)
 		}
+		.capacityCounter{
+			position: absolute;
+			bottom: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			font-size: 24px !important;
+		}
 		.button {
 			background-color: #fff;
 			width: 45%;
@@ -131,6 +138,7 @@
 					}
 					
 					echo '<p class="number">'.$total.'</p>';
+					echo '<p class="capacityCounter">'.(int)($total/$capacity).'% Capacity</p>'
 				?>
 			</div>
 		</div>
@@ -156,7 +164,7 @@
 				update()
 				setInterval(function(){
 					update()
-				}, 1000);
+				}, 500);
 
 				$('.buttonLeft').on('click', addOne);
 				$('.buttonRight').on('click', deleteOne);
@@ -164,6 +172,7 @@
 
 			function update(){
 				var l = $('#location').val();
+				var capacity = $('#capacity').val();
 				var location = { location: l}
 				$.ajax({
 					url: 'get-num.php',
@@ -172,6 +181,10 @@
 					dataType: 'text',
 					success:function(data){
 						$('.number').html(data);
+						//update capacity
+						$('.capacityCounter').html(parseInt(data/capacity*100)+"% Capacity");
+						//copy color from number
+						$('.capacityCounter').css('color', $('.number').css('color'));
 						console.log('updated')
 						updateColor(data);
 					}
