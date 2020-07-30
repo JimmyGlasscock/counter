@@ -1,5 +1,5 @@
 <?php
-$conn = mysqli_connect("localhost", "root", "101scripting", "student-counter");
+$conn = mysqli_connect("localhost", "username", "password", "counter");
 	if(!$conn){
 		//error messages
 		echo "Unable to connect to database! <br>";
@@ -8,7 +8,7 @@ $conn = mysqli_connect("localhost", "root", "101scripting", "student-counter");
 		die();
 	}
 	
-	$query = "INSERT INTO students (num, location) VALUES ('1', '".$_POST['location']."');";
+	$query = "INSERT INTO customers (num, location) VALUES ('1', '".$_POST['location']."');";
 	
 	$result = $conn->query($query);
 	

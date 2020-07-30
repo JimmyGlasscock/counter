@@ -3,7 +3,7 @@
 		header('Location: index.html');
 	}
 
-	$conn = mysqli_connect("localhost", "root", "101scripting", "student-counter");
+	$conn = mysqli_connect("localhost", "username", "password", "counter");
 	if(!$conn){
 		//error messages
 		echo "Unable to connect to database! <br>";
@@ -30,7 +30,7 @@
 ?>
 <html>
 	<link rel="stylesheet" href="style.css" type="text/css">
-	<title>Student Counter</title>
+	<title>Counter</title>
 	<style>
 		.contain{
 			width: 95%;
@@ -134,7 +134,7 @@
 	<body>
 		<div class="contain" id="title">
 			<span class="textcenter" id="titleText">
-				<h1>Student Counter</h1><h2 style="color: #fff; font-size: 18pt; font-weight: lighter;">
+				<h1>Counter</h1><h2 style="color: #fff; font-size: 18pt; font-weight: lighter;">
 				<?php 
 					echo '<strong>';
 				

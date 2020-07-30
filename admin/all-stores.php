@@ -1,5 +1,5 @@
 <?php
-	$conn = mysqli_connect("localhost", "root", "101scripting", "student-counter");
+	$conn = mysqli_connect("localhost", "username", "password", "counter");
 	if(!$conn){
 		//error messages
 		echo "Unable to connect to database! <br>";
@@ -27,7 +27,7 @@
 ?>
 <html>
 	<link rel="stylesheet" href="../style.css" type="text/css">
-	<title>Student Counter</title>
+	<title>Counter</title>
 	<style>
 		.contain{
 			width: 95%;
@@ -130,34 +130,34 @@
 	<body>
 		<div class="contain" id="title">
 			<span class="textcenter" id="titleText">
-				<h1>Store Capacity</h1><h2 style="color: #fff; font-size: 18pt; font-weight: lighter;">
+				<h1>Capacity</h1><h2 style="color: #fff; font-size: 18pt; font-weight: lighter;">
 			</span>
 		</div>
 		<div class="TwoByTwo">
 			<div class="contain storeOneNumberDisplay" style="height: 35%;">
 				<div>
-					<p class="storeOneLabel" style="text-align: center;">Campus Store</p>
+					<p class="storeOneLabel" style="text-align: center;">Store One</p>
 					<p class="storeOneNumber"></p>
 					<p class="storeOneCapacityCounter"></p>
 				</div>
 			</div>
 			<div class="contain storeTwoNumberDisplay" style="height: 35%;">
 				<div>
-					<p class="storeTwoLabel" style="text-align: center;">Health Sciences</p>
+					<p class="storeTwoLabel" style="text-align: center;">Store Two</p>
 					<p class="storeTwoNumber"></p>
 					<p class="storeTwoCapacityCounter"></p>
 				</div>
 			</div><br>
 			<div class="contain storeThreeNumberDisplay" style="height: 35%;">
 				<div>
-					<p class="storeThreeLabel" style="text-align: center;">Sandy One</p>
+					<p class="storeThreeLabel" style="text-align: center;">Store Three</p>
 					<p class="storeThreeNumber"></p>
 					<p class="storeThreeCapacityCounter"></p>
 				</div>
 			</div>
 			<div class="contain storeFourNumberDisplay" style="height: 35%;">
 				<div>
-					<p class="storeFourLabel" style="text-align: center;">Textbooks</p>
+					<p class="storeFourLabel" style="text-align: center;">Store Four</p>
 					<p class="storeFourNumber"></p>
 					<p class="storeFourCapacityCounter"></p>
 				</div>

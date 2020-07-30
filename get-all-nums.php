@@ -1,5 +1,5 @@
 <?php
-$conn = mysqli_connect("localhost", "root", "101scripting", "student-counter");
+$conn = mysqli_connect("localhost", "username", "password", "counter");
 	if(!$conn){
 		//error messages
 		echo "Unable to connect to database! <br>";
@@ -11,7 +11,7 @@ $conn = mysqli_connect("localhost", "root", "101scripting", "student-counter");
 	$array = array();
 	
 	for($i=0; $i < 4; $i++){
-		$query = "SELECT * FROM students WHERE location = '".($i+1)."' AND DATE(time) = CURDATE();;";
+		$query = "SELECT * FROM counter WHERE location = '".($i+1)."' AND DATE(time) = CURDATE();;";
 		$result = $conn->query($query)->fetch_all();
 		
 		$total = 0;

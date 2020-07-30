@@ -79,7 +79,7 @@
 	<div class="contain largeBG" style="text-align: center;">
 <?php
 	if($_POST['date']){
-		$conn = mysqli_connect("localhost", "root", "101scripting", "student-counter");
+		$conn = mysqli_connect("localhost", "username", "password", "counter");
 		if(!$conn){
 			//error messages
 			echo "Unable to connect to database! <br>";
@@ -88,7 +88,7 @@
 			die();
 		}
 		
-		$query = "SELECT * FROM students WHERE DATE(time) = '".$_POST["date"]."';";
+		$query = "SELECT * FROM customers WHERE DATE(time) = '".$_POST["date"]."';";
 		$result = $conn->query($query)->fetch_all();
 		
 		//format results into a form we can use
@@ -172,24 +172,24 @@
 		var date = e('#date').html();
 		
         var optionsOne = {
-          title: 'Students in the Campus Store on '+date,
+          title: 'Customers in the Campus Store on '+date,
           curveType: 'line',
           legend: { position: 'bottom' }
         };
 		var optionsTwo = {
-          title: 'Students in the Health Science Store on '+date,
+          title: 'Customers in the Health Science Store on '+date,
           curveType: 'line',
           legend: { position: 'bottom' }
         };
 
 		var optionsThree = {
-          title: 'Students in Sandy Store on '+date,
+          title: 'Customers in Sandy Store on '+date,
           curveType: 'line',
           legend: { position: 'bottom' }
         };
 
 		var optionsFour = {
-          title: 'Students in Textbooks on '+date,
+          title: 'Customers in Textbooks on '+date,
           curveType: 'line',
           legend: { position: 'bottom' }
         };
