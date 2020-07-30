@@ -113,6 +113,13 @@
 			.storeThreeNumber, .storeFourNumber{
 				top: 60%;
 			}
+			
+			.storeOneNumberDisplay, .storeThreeNumberDisplay{
+				width: 42%;
+			}
+			.storeTwoNumberDisplay, .storeFourNumberDisplay{
+				width: 42%;
+			}
 		}
 	</style>
 	<head>

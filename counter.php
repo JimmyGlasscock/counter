@@ -155,19 +155,8 @@
 		</div>
 		<div class="contain numberDisplay" style="height: 35%;">
 			<div>
-				<!-- Display number of students -->
-				<?php 
-					$query = "SELECT * FROM students;";
-					$result = $conn->query($query)->fetch_all();
-					
-					$total = 0;
-					foreach($result as $item){
-						$total = $total + (int)$item[1];
-					}
-					
-					echo '<p class="number">'.$total.'</p>';
-					echo '<p class="capacityCounter">'.(int)($total/$capacity).'% Capacity</p>'
-				?>
+				<p class="number">0</p>
+				<p class="capacityCounter">0% Capacity</p>
 			</div>
 		</div>
 		<div>

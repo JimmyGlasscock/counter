@@ -8,7 +8,7 @@ $conn = mysqli_connect("localhost", "root", "101scripting", "student-counter");
 		die();
 	}
 	
-	$query = "SELECT * FROM students WHERE location = '".$_POST['location']."';";
+	$query = "SELECT * FROM students WHERE location = '".$_POST['location']."' AND DATE(time) = CURDATE();";
 	$result = $conn->query($query)->fetch_all();
 	
 	$total = 0;

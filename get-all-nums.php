@@ -11,7 +11,7 @@ $conn = mysqli_connect("localhost", "root", "101scripting", "student-counter");
 	$array = array();
 	
 	for($i=0; $i < 4; $i++){
-		$query = "SELECT * FROM students WHERE location = '".($i+1)."';";
+		$query = "SELECT * FROM students WHERE location = '".($i+1)."' AND DATE(time) = CURDATE();;";
 		$result = $conn->query($query)->fetch_all();
 		
 		$total = 0;

@@ -8,8 +8,18 @@ $conn = mysqli_connect("localhost", "root", "101scripting", "student-counter");
 		die();
 	}
 	
-	$query = "INSERT INTO students (num, location) VALUES ('-1', '".$_POST['location']."');";
-	$result = $conn->query($query);
+	$query = "SELECT * FROM students WHERE location = '".$_POST['location']."' AND DATE(time) = CURDATE();";
+	$result = $conn->query($query)->fetch_all();
+	
+	$total = 0;
+	foreach($result as $item){
+		$total = $total + (int)$item[1];
+	}
+	
+	if($total > 0){
+		$query = "INSERT INTO students (num, location) VALUES ('-1', '".$_POST['location']."');";
+		$result = $conn->query($query);
+	}
 	
 	echo 'decrease success.';
 ?>
