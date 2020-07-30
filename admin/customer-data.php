@@ -30,17 +30,44 @@
 		}
 		#line_chart_one, #line_chart_three{
 			position: absolute;
-			left: 15%;
+			left: 12%;
 		}
 		#line_chart_two, #line_chart_four{
 			position: absolute;
-			right: 15%;
+			right: 12%;
 		}
 		#line_chart_one, #line_chart_two{
 			top: 10%;
 		}
 		#line_chart_three, #line_chart_four{
 			top: 45%;
+		}
+		.largeBG{
+			height: 600px;
+		}
+		@media only screen and (max-device-width: 599px) {
+			.largeBG{
+				height: 750px;
+			}
+			
+			.largeBG p, .largeBG input{
+				font-size: 36px !important;
+			}
+			
+			#line_chart_one, #line_chart_three{
+				position: absolute;
+				left: 5%;
+			}
+			#line_chart_two, #line_chart_four{
+				position: absolute;
+				right: 5%;
+			}
+			#line_chart_one, #line_chart_two{
+				top: 10%;
+			}
+			#line_chart_three, #line_chart_four{
+				top: 32%;
+			}
 		}
 	</style>
 <body>
@@ -49,7 +76,7 @@
 				<h1><strong style="color: white;">Customer Data</strong></h1>
 			</span>
 		</div>
-	<div class="contain" style="height: 600px;">
+	<div class="contain largeBG" style="text-align: center;">
 <?php
 	if($_POST['date']){
 		$conn = mysqli_connect("localhost", "root", "101scripting", "student-counter");
@@ -112,7 +139,7 @@
 		
 	}else{
 		//echo datepicker form
-		echo '<form action="customer-data.php" method="post"><p style="text-align:center;">Select Date:</p><input type="text" class="datepicker" name="date"><br><br><input type="submit" value="Go"></form>';
+		echo '<form action="customer-data.php" method="post"><p style="text-align:center;">Select Date:</p><input type="text" class="datepicker" name="date" readonly><br><br><input type="submit" value="Go"></form>';
 	}
 ?>
 </div>
