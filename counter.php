@@ -1,4 +1,8 @@
 <?php
+	if($_POST["verify"] != 'w3g00d'){
+		header('Location: index.html');
+	}
+
 	$conn = mysqli_connect("localhost", "root", "101scripting", "student-counter");
 	if(!$conn){
 		//error messages
@@ -101,6 +105,26 @@
 			top: 52%;
 			right: 22%;
 		}
+		
+		@media only screen and (min-device-width: 600px) {
+			.capacityCounter{
+				bottom: 38%;
+			}
+			.buttonLeft{
+				width: 40%;
+				margin-left: 3%;
+			}
+			.buttonRight{
+				width: 40%;
+				margin-right: 3%;
+			}
+			.buttonLeft p{
+				top: 57%;
+			}
+			.buttonRight p{
+				top: 57%;
+			}
+		}
 	</style>
 	<head>
 		<link rel=\"stylesheet\" href=\"//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css\">
@@ -112,6 +136,8 @@
 			<span class="textcenter" id="titleText">
 				<h1>Student Counter</h1><h2 style="color: #fff; font-size: 18pt; font-weight: lighter;">
 				<?php 
+					echo '<strong>';
+				
 					if($_SESSION['location'] == '1'){
 						echo 'Campus Store';
 					}else if($_SESSION['location'] == '2'){
@@ -121,6 +147,8 @@
 					}else if($_SESSION['location'] == '4'){
 						echo 'Textbooks';
 					}
+					
+					echo '</strong> - Capacity '.$capacity;
 				?>
 				</h2>
 			</span>
@@ -231,11 +259,11 @@
 					$('.number').css('color', '#fff');
 					console.log("capa: "+capacity)
 					console.log("data: "+data)
-				}else if(capacity*0.9 < data){
+				}else if(capacity*0.8 < data){
 					//set color #ffbc9c
 					$('.numberDisplay').css('background', '#ffbc9c');
 					$('.number').css('color', '#000');
-				}else if(capacity*0.75 < data){
+				}else if(capacity*0.6 < data){
 					//set color #ffe19c
 					$('.numberDisplay').css('background', '#ffe19c');
 					$('.number').css('color', '#000');
