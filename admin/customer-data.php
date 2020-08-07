@@ -127,7 +127,7 @@
 					}
 					$sum += $currentNumOfPeopleInStore;
 				}
-				$avg = $sum/60;
+				$avg = ceil($sum/60);
 				$avgArray[$x][$hour-7] = $avg;
 			}
 		}
@@ -246,4 +246,3 @@
     </script>
 </footer>
 </html>
-		
