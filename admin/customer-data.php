@@ -93,6 +93,7 @@
 		
 		//format results into a form we can use
 		$timeArray = array();
+		$avgArray = array();
 		
 		//go through all times, log the # of people once per hour
 		for($x = 0; $x < 4; $x++){
@@ -110,6 +111,24 @@
 				}
 				//add hourmax to array
 				$timeArray[$x][$i-7] = $hourMax;
+			}
+			
+			//grab avg # of people in store per hour
+			for($hour = 7; $hour < 19; $hour++){
+				$sum = 0;
+				for($min = 0; $min < 60; $min++){
+					$currentNumOfPeopleInStore = 0;
+					foreach($result as $row){
+						$currentHour = (int)substr($row[3], 11, 2);
+						$currentMin = (int)substr($row[3], 14, 2);
+						if($row[2] == $x+1 && $currentHour == $hour && $currentMin == $min){
+							$currentNumOfPeopleInStore += (int)$row[1];
+						}
+					}
+					$sum += $currentNumOfPeopleInStore;
+				}
+				$avg = $sum/60;
+				$avgArray[$x][$hour-7] = $avg;
 			}
 		}
 		
@@ -130,11 +149,28 @@
 		}
 		$array .= ']';
 		
+		$array2 = '[';
+		for($i = 0; $i < count($avgArray); $i++){
+			$array2 .= '[';
+			for($j = 0; $j < count($avgArray[$i]); $j++){
+				$array2 .= $avgArray[$i][$j];
+				if($j < count($avgArray[$i])-1){
+					$array2 .= ',';
+				}
+			}
+			$array2 .= ']';
+			if($i < count($avgArray)-1){
+					$array2 .= ',';
+				}
+		}
+		$array2 .= ']';
+		
 		echo '<div id="line_chart_one" style="width: 450px; height: 250px"></div>';
 		echo '<div id="line_chart_two" style="width: 450px; height: 250px"></div>';
 		echo '<div id="line_chart_three" style="width: 450px; height: 250px"></div>';
 		echo '<div id="line_chart_four" style="width: 450px; height: 250px"></div>';
 		echo '<span style="display: none;" id="results">'.$array.'</span>';
+		echo '<span style="display: none;" id="avgResults">'.$array2.'</span>';
 		echo '<span style="display: none;" id="date">'.$_POST['date'].'</span>';
 		
 	}else{
@@ -152,13 +188,14 @@
       function drawChart() {
 		var e = jQuery.noConflict();
 		var array = JSON.parse(e('#results').html());
+		var avgArray = JSON.parse(e('#avgResults').html());
 		
-		var storeData = [[['Time', '# of People']],[['Time', '# of People']], [['Time', '# of People']], [['Time', '# of People']]];
+		var storeData = [[['Time', '# of People', 'avg # of People']],[['Time', '# of People', 'avg # of People']], [['Time', '# of People', 'avg # of People']], [['Time', '# of People', 'avg # of People']]];
 		
 		for(var i = 0; i < array.length; i++){
 			for(var j = 0; j < array[i].length; j++){
 				var q = j+7;
-				storeData[i][storeData[i].length] = [q+':00', array[i][j]];
+				storeData[i][storeData[i].length] = [q+':00', array[i][j], avgArray[i][j]];
 			}
 		}
 		
@@ -168,28 +205,29 @@
 		var dataTwo = google.visualization.arrayToDataTable(storeData[1]);
 		var dataThree = google.visualization.arrayToDataTable(storeData[2]);
 		var dataFour = google.visualization.arrayToDataTable(storeData[3]);
+		
 
 		var date = e('#date').html();
 		
         var optionsOne = {
-          title: 'Customers in the Campus Store on '+date,
+          title: 'Students in the Campus Store on '+date,
           curveType: 'line',
           legend: { position: 'bottom' }
         };
 		var optionsTwo = {
-          title: 'Customers in the Health Science Store on '+date,
+          title: 'Students in the Health Science Store on '+date,
           curveType: 'line',
           legend: { position: 'bottom' }
         };
 
 		var optionsThree = {
-          title: 'Customers in Sandy Store on '+date,
+          title: 'Students in Sandy Store on '+date,
           curveType: 'line',
           legend: { position: 'bottom' }
         };
 
 		var optionsFour = {
-          title: 'Customers in Textbooks on '+date,
+          title: 'Students in Textbooks on '+date,
           curveType: 'line',
           legend: { position: 'bottom' }
         };
@@ -208,3 +246,4 @@
     </script>
 </footer>
 </html>
+		
