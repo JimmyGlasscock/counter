@@ -114,10 +114,10 @@
 			}
 			
 			//grab avg # of people in store per hour
+			$currentNumOfPeopleInStore = 0;
 			for($hour = 7; $hour < 19; $hour++){
 				$sum = 0;
 				for($min = 0; $min < 60; $min++){
-					$currentNumOfPeopleInStore = 0;
 					foreach($result as $row){
 						$currentHour = (int)substr($row[3], 11, 2);
 						$currentMin = (int)substr($row[3], 14, 2);
